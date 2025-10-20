@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💈 Barbearia Estilo Fino</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ======== MENU ======== -->
+
+    <header>
+  <nav>
+    <ul>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#agendamento">Agendamento</a></li>
+    </ul>
+  </nav>
+  <h1>Barbearia Estilo</h1>
+    </header>
+
+
+  <!-- ======== APRESENTAÇÃO ======== -->
+  <section id="apresentacao">
+  <h2>Bem-vindo à Barbearia Estilo</h2>
+  <p>Tradição e modernidade se encontram aqui! 
+     Oferecemos cortes de cabelo e barba com qualidade, estilo e atendimento personalizado.
+  </p>
+</section>
+
+
+  <!-- ======== SERVIÇOS ======== -->
+  <section id="servicos">
+  <h2>Serviços</h2>
+
+  <div class="servicos-container">
+    <div class="servico">
+      <h3>Corte Simples</h3>
+      <p>R$ 25,00</p>
+    </div>
+
+    <div class="servico">
+      <h3>Barba + Corte</h3>
+      <p>R$ 35,00</p>
+    </div>
+
+    <div class="servico">
+      <h3>Degradê</h3>
+      <p>R$ 30,00</p>
+    </div>
+
+    <div class="servico">
+      <h3>Navalhado</h3>
+      <p>R$ 40,00</p>
+    </div>
+
+    <div class="servico">
+      <h3>Platinado</h3>
+      <p>R$ 50,00</p>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- ======== AGENDAMENTO ======== -->
+  <section id="agendamento">
+  <h2>Agende seu horário</h2>
+  <form id="form-agendamento">
+    <input type="text" id="nome" placeholder="Seu nome" required>
+    <input type="tel" id="telefone" placeholder="Telefone" required>
+
+    <select id="servico" required>
+      <option value="">Escolha o serviço</option>
+      <option value="corte">Corte - R$25,00</option>
+      <option value="barba">Barba - R$15,00</option>
+      <option value="combo">Corte + Barba - R$35,00</option>
+    </select>
+
+    <input type="date" id="data" required>
+    <select id="horario" required>
+      <option value="">Escolha o horário</option>
+      <!-- Horários serão preenchidos via JavaScript -->
+    </select>
+
+    <button type="submit">Agendar</button>
+  </form>
+
+  <p id="mensagem"></p>
+</section>
+
+
+  <!-- ======== RODAPÉ ======== -->
+ <footer>
+  <p class="local">📍 Rua Principal, 123 - Centro | 📞 (84) 99999-0000</p>
+  <div class="social">
+    <a href="#">Instagram</a>
+    <a href="#">WhatsApp</a>
+  </div>
+</footer>
+
+  <!-- ======== LINK PARA O JS ======== -->
+
+  <script src="script.js"></script>
+</body>
+</html>

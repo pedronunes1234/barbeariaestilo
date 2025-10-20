@@ -1,0 +1,231 @@
+/* ======== ESTILO GERAL ======== */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  scroll-behavior: smooth;
+}
+
+/* ======== CABEÇALHO ======== */
+header {
+  background-color: #222;
+  color: white;
+  padding: 25px 42px;
+  display: flex;
+  justify-content: space-between; /* separa nome e menu */
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Nome da barbearia (lado direito) */
+header h1 {
+  margin: 0;
+  font-size: 1.5em;
+  order: 1; /* joga para direita */
+}
+
+/* Menu (lado esquerdo) */
+nav {
+  order: 2; /* fica à esquerda */
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #ffb300;
+}
+
+/* ======== APRESENTAÇÃO ======== */
+#apresentacao {
+  width: 100%;                      /* substitui 100vw */
+  margin: 0;
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #222, #444);
+  color: white;
+  text-align: center;
+  box-sizing: border-box;
+  margin-top: 100px;
+  overflow-x: hidden;  
+  box-shadow: 5px 5px 5px  rgba(0, 0, 0, 0.527);             /* evita rolagem lateral */
+
+
+ /* Imagem de fundo */
+  background-image: url('imagens/apresentação.jpg'); /* caminho da imagem */
+  background-size: cover;      /* cobre toda a área, sem distorcer */
+  background-position: center; /* centraliza a parte mais importante da imagem */
+  background-repeat: no-repeat;
+  
+  /* Um efeito escuro por cima pra destacar o texto */
+  position: relative;
+}
+
+
+#apresentacao h2 {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+#apresentacao p {
+  font-size: 1.2em;
+  max-width: 800px;           /* limita largura do texto */
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+
+
+/* ======== SERVIÇOS ======== */
+#servicos {
+  max-width: 1000px;
+  margin: 100px auto;
+  padding: 0 20px;
+  background: none; /* tira o fundo branco da seção */
+  box-shadow: none; /* tira a sombra */
+}
+
+#servicos h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Coloca as caixas lado a lado */
+.servicos-container {
+  display: flex;
+  flex-wrap: wrap;         /* quebra linha se for pequeno */
+  gap: 20px;               /* espaço entre as caixas */
+  justify-content: center; /* centraliza tudo */
+}
+
+/* Cada corte é uma caixa separada */
+.servico {
+  flex: 1 1 220px;             /* largura mínima de 220px */
+  max-width: 250px;            /* largura máxima */
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.295);
+  transition: transform 0.2s;
+}
+
+.servico:hover {
+  
+  background-color: #33333325;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255,255,255,0.7);
+}
+
+.servico h3 {
+  margin-top: 0;
+  font-size: 1.2em;
+  color: #222;
+}
+
+.servico p {
+  margin: 8px 0 0;
+  font-weight: bold;
+  color: #555;
+}
+
+
+/* ======== AGENDAMENTO ======== */
+/* ======== AGENDAMENTO ======== */
+#agendamento {
+  max-width: 800px;
+  margin: 80px auto;              /* espaço antes e depois */
+  padding: 30px 20px;
+  background: #f7f7f7;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#agendamento h2 {
+  margin-bottom: 20px;
+  font-size: 1.6em;
+  color: #222;
+}
+
+#agendamento form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#agendamento input,
+#agendamento select {
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#agendamento button {
+  background-color: #222;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s;
+}
+
+#agendamento button:hover {
+  background-color: #444;
+}
+
+
+/* ======== RODAPÉ ======== */
+footer {
+  background-color: #222;
+  color: #ffffff;
+  padding: 0px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* quebra se for tela pequena */
+  margin-top: 50px;
+}
+
+footer .info {
+  font-size: 0.9em;
+}
+
+.local{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 20px;
+}
+
+footer .social a {
+ 
+  color: #ffb300;
+  text-decoration: none;
+  margin-left: 15px;
+  font-weight: bold;
+}
+
+footer .social a:hover {
+  text-decoration: underline;
+}
