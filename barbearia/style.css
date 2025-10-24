@@ -10,6 +10,7 @@ body {
 /* ======== CABEÇALHO ======== */
 header {
   background-color: #222;
+  box-shadow: 5px 5px 5px  rgba(0, 0, 0, 0.329); 
   color: white;
   padding: 25px 42px;
   display: flex;
@@ -21,15 +22,21 @@ header {
 }
 
 /* Nome da barbearia (lado direito) */
+
+
 header h1 {
+  font-family: "Raleway";
   margin: 0;
-  font-size: 1.5em;
+  font-size: 2em;
   order: 1; /* joga para direita */
 }
 
+
 /* Menu (lado esquerdo) */
 nav {
+  font-family: "Lobster", sans-serif;
   order: 2; /* fica à esquerda */
+  font-size: 1,5em;
 }
 
 nav ul {
@@ -61,11 +68,11 @@ nav a:hover {
   box-sizing: border-box;
   margin-top: 100px;
   overflow-x: hidden;  
-  box-shadow: 5px 5px 5px  rgba(0, 0, 0, 0.527);             /* evita rolagem lateral */
+  box-shadow: 5px 5px 5px  rgba(0, 0, 0, 0.329);             /* evita rolagem lateral */
 
 
  /* Imagem de fundo */
-  background-image: url('imagens/apresentação.jpg'); /* caminho da imagem */
+  background-image: url('imagens/apresentação.png'); /* caminho da imagem */
   background-size: cover;      /* cobre toda a área, sem distorcer */
   background-position: center; /* centraliza a parte mais importante da imagem */
   background-repeat: no-repeat;
@@ -76,11 +83,13 @@ nav a:hover {
 
 
 #apresentacao h2 {
+ font-family: "Raleway"; ;
   font-size: 2.5em;
   margin-bottom: 15px;
 }
 
 #apresentacao p {
+  font-family:"Lobster", sans-serif ;
   font-size: 1.2em;
   max-width: 800px;           /* limita largura do texto */
   margin: 0 auto;
