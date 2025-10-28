@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seu Carrinho - Barbearia Estilo</title>
+  <style>
+
+    body{
+        background-color: #b4b0b08e;
+    }
+    /* ======== CABEÇALHO ======== */
+header {
+  background-color: #222;
+  color: white;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header {
+  max-height: 50px;
+  text-align: center;
+  justify-content: center;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+#icone-carrinho-link {
+  position: relative;
+  font-size: 1.4rem;
+  padding: 6px 10px;
+}
+
+#contador-carrinho {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ffb300;
+  color: #000;
+  font-weight: bold;
+  font-size: 0.75rem;
+  border-radius: 50%;
+  padding: 4px 7px;
+  box-shadow: 0 0 6px rgba(255,255,255,0.9);
+}
+
+/* ======== CARRINHO ======== */
+
+#carrinho {
+  width: 90%;             /* largura responsiva */
+  max-width: 600px;  
+  min-height: 400px;      /* não passa de 600px em telas grandes */
+  margin: 50px auto;      /* centraliza horizontalmente e dá top margin */
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  box-sizing: border-box; /* garante que padding não aumente o tamanho */
+}
+
+#carrinho h2 {
+  margin-bottom: 25px;
+  font-size: 1.8em;
+  color: #222;
+}
+
+#lista-carrinho {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#lista-carrinho li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 1.1em;
+}
+
+.remover {
+  color: red;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.remover:hover {
+  color: darkred;
+  transform: scale(1.2);
+}
+
+#carrinho-vazio {
+  color: #777;
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+#total {
+  text-align: right;
+  margin-top: 25px;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #222;
+}
+
+#btn-ir-agendamento {
+  margin-top: 30px;
+  background-color: #222;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 25px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#btn-ir-agendamento:hover {
+  background-color: #ffb300;
+  color: black;
+}
+
+/* ======== RODAPÉ ======== */
+footer {
+  background-color: #222;
+  color: white;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.9em;
+}
+
+footer a {
+  color: #ffb300;
+  text-decoration: none;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* ======== RESPONSIVIDADE ======== */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #carrinho {
+    width: 90%;
+    padding: 20px;
+  }
+
+  #lista-carrinho li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  #total {
+    text-align: center;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <!-- ======== CABEÇALHO ======== -->
+  <header>
+    <h1>Barbearia Estilo</h1>
+  </header>
+
+  <!-- ======== CONTEÚDO DO CARRINHO ======== -->
+  <main>
+    <section id="carrinho">
+      <h2>🛒 Seu Carrinho</h2>
+
+      <!-- Mensagem se estiver vazio -->
+      <p id="carrinho-vazio">Seu carrinho está vazio.</p>
+
+      <ul id="lista-carrinho"></ul>
+
+      <div id="total">
+        <h3>Total: R$ <span id="valor-total">0,00</span></h3>
+      </div>
+
+      <button id="btn-ir-agendamento">Ir para Agendamento</button>
+    </section>
+  </main>
+
+  
+
+  <!-- ======== SCRIPT DO CARRINHO ======== -->
+  <script>
+    // Carrega o carrinho salvo no localStorage (se existir)
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    const listaCarrinho = document.getElementById('lista-carrinho');
+    const valorTotal = document.getElementById('valor-total');
+    const mensagemVazio = document.getElementById('carrinho-vazio');
+    const contadorCarrinho = document.getElementById('contador-carrinho');
+    const botaoAgendar = document.getElementById('btn-ir-agendamento');
+
+    // Atualiza lista e total
+    function atualizarCarrinho() {
+      listaCarrinho.innerHTML = '';
+
+      if (carrinho.length === 0) {
+        mensagemVazio.style.display = 'block';
+        valorTotal.textContent = '0,00';
+        contadorCarrinho.textContent = '0';
+        return;
+      }
+
+      mensagemVazio.style.display = 'none';
+      contadorCarrinho.textContent = carrinho.length;
+
+      carrinho.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span>${item.nome}</span>
+          <span>R$ ${item.preco.toFixed(2)}</span>
+          <span class="remover" onclick="removerItem(${index})">🗑️</span>
+        `;
+        listaCarrinho.appendChild(li);
+      });
+
+      const total = carrinho.reduce((soma, item) => soma + item.preco, 0);
+      valorTotal.textContent = total.toFixed(2);
+    }
+
+    // Remover item
+    function removerItem(index) {
+      carrinho.splice(index, 1);
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      atualizarCarrinho();
+    }
+
+    // Botão "Ir para agendamento"
+    botaoAgendar.addEventListener('click', () => {
+      window.location.href = "index.html#agendamento";
+    });
+
+    atualizarCarrinho();
+  </script>
+</body>
+</html>
