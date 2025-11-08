@@ -1,5 +1,6 @@
 /* ======== ESTILO GERAL ======== */
 body {
+  background-image: url(imagens/imagemdefundo.png);
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -9,37 +10,44 @@ body {
 
 /* ======== CABEÇALHO ======== */
 header {
-  background-color: #222;
-  box-shadow: 5px 5px 5px  rgba(0, 0, 0, 0.329); 
+  background-color: #222222;
   color: white;
-  padding: 25px 42px;
+  padding: 20px 40px;
   display: flex;
-  justify-content: space-between; /* separa nome e menu */
+  justify-content: space-between; /* Alinha H1 à esquerda e header-right à direita */
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 1000;
+  flex-wrap: wrap; 
+  gap: 10px;
 }
 
-/* Nome da barbearia (lado direito) */
-
-
+/* H1 no Desktop (Lado Esquerdo) */
 header h1 {
-  font-family: "Raleway";
   margin: 0;
-  font-size: 2em;
-  order: 1; /* joga para direita */
+  font-size: 1.6rem; 
+  white-space: nowrap;
+  text-align: left; /* Garante que fique alinhado à esquerda no Desktop */
+  flex-grow: 0; /* Não cresce, fica à esquerda */
 }
 
+/* Container do Menu Links e Carrinho (Lado Direito no Desktop) */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre o Menu de Links e o Carrinho */
+}
 
-/* Menu (lado esquerdo) */
-nav {
+/* Menu de Links (para desktop) */
+#menu-links {
+  border-radius: 15px;
+  display: block; /* Visível no Desktop */
   font-family: "Lobster", sans-serif;
-  order: 2; /* fica à esquerda */
-  font-size: 1,5em;
 }
 
-nav ul {
+#menu-links ul {
+ 
   list-style: none;
   padding: 0;
   margin: 0;
@@ -47,19 +55,127 @@ nav ul {
   gap: 20px;
 }
 
-nav a {
+#menu-links a {
   text-decoration: none;
   color: white;
   font-weight: bold;
 }
 
-nav a:hover {
+#menu-links a:hover {
   color: #ffb300;
 }
 
-/* ======== APRESENTAÇÃO ======== */
+/* Esconde o botão hamburguer no desktop */
+#menu-toggle {
+  display: none; 
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+/* Estilo do ícone do carrinho */
+#icone-carrinho-link {
+    position: relative;
+    font-size: 1.4rem; 
+    padding: 6px 0;
+    color: white; 
+    text-decoration: none;
+}
+
+/* Contador de itens do carrinho (BRILHANTE) */
+#contador-carrinho {
+    position: absolute;
+    top: -8px; 
+    right: -4px; 
+    background-color: transparent; 
+    color: #ffb300; 
+    border-radius: 0; 
+    padding: 0; 
+    font-size: 0.9rem; 
+    min-width: 0; 
+    text-align: center;
+    line-height: 1;
+    font-weight: bold;
+    z-index: 10; 
+    text-shadow: 0 0 5px #fff, 0 0 10px #ffb300; 
+    display: none; 
+}
+
+
+/* --- RESPONSIVIDADE (Mobile) --- */
+@media (max-width: 768px) {
+    header {
+        justify-content: space-between;
+        padding: 15px 20px;
+    }
+    
+    header h1 {
+        /* Diminui o nome da barbearia e centraliza */
+        font-size: 1.2rem; 
+        flex-grow: 1; 
+        text-align: center;
+    }
+
+    /* Oculta o menu de links no Mobile */
+    #menu-links {
+        display: none; 
+        position: absolute;
+        top: 50px; 
+        right: 0;
+        background-color: #222222c2;
+        width: 150px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        z-index: 999;
+        text-align: right;
+    }
+    
+    /* Mostra o botão hamburguer no mobile */
+    #menu-toggle {
+        display: block; 
+        font-size: 1.3rem;
+    }
+
+    /* Agrupamento: Carrinho e Menu Toggle unidos e no canto direito */
+    .header-right {
+        gap: 10px; 
+    }
+    
+    /* Reduz o tamanho do ícone do carrinho */
+    #icone-carrinho-link {
+        font-size: 1.1rem; 
+    }
+    
+    /* Ajusta o posicionamento do contador para o ícone menor */
+    #contador-carrinho {
+        top: -5px; 
+        right: -3px;
+        font-size: 0.8rem;
+    }
+
+    /* Mostra navegação quando a classe 'open' é adicionada */
+    #menu-links.open {
+        display: block;
+    }
+
+    #menu-links ul {
+        flex-direction: column;
+        gap: 0;
+        padding: 10px 20px 10px 10px;
+    }
+
+    #menu-links li {
+        padding: 8px 0;
+    }
+}
+
+
+/* ======== APRESENTAÇÃO RESTAURADA ======== */
 #apresentacao {
-  width: 100%;                      /* substitui 100vw */
+  width: 100%;                      
   margin: 0;
   padding: 100px 20px;
   background: linear-gradient(135deg, #222, #444);
@@ -68,19 +184,16 @@ nav a:hover {
   box-sizing: border-box;
   margin-top: 100px;
   overflow-x: hidden;  
-  box-shadow: 5px 5px 5px  rgba(0, 0, 0, 0.329);             /* evita rolagem lateral */
-
+  box-shadow: 5px 5px 5px  #00000031;             
 
  /* Imagem de fundo */
-  background-image: url('imagens/apresentação.png'); /* caminho da imagem */
-  background-size: cover;      /* cobre toda a área, sem distorcer */
-  background-position: center; /* centraliza a parte mais importante da imagem */
+  background-image: url('imagens/apresentação.png'); 
+  background-size: cover;      
+  background-position: center; 
   background-repeat: no-repeat;
   
-  /* Um efeito escuro por cima pra destacar o texto */
   position: relative;
 }
-
 
 #apresentacao h2 {
  font-family: "Raleway"; ;
@@ -91,23 +204,24 @@ nav a:hover {
 #apresentacao p {
   font-family:"Lobster", sans-serif ;
   font-size: 1.2em;
-  max-width: 800px;           /* limita largura do texto */
+  max-width: 800px;           
   margin: 0 auto;
   line-height: 1.6;
 }
 
-
-
-/* ======== SERVIÇOS ======== */
+/* ======== SERVIÇOS RESTAURADA ======== */
 #servicos {
   max-width: 1000px;
   margin: 100px auto;
   padding: 0 20px;
-  background: none; /* tira o fundo branco da seção */
-  box-shadow: none; /* tira a sombra */
+  background: none; 
+  box-shadow: none; 
 }
 
 #servicos h2 {
+  color: #f8f5f5;
+  font-size: 2em;
+  font-family: "Lobster", sans-serif,monospace;
   text-align: center;
   margin-bottom: 30px;
 }
@@ -115,50 +229,57 @@ nav a:hover {
 /* Coloca as caixas lado a lado */
 .servicos-container {
   display: flex;
-  flex-wrap: wrap;         /* quebra linha se for pequeno */
-  gap: 20px;               /* espaço entre as caixas */
-  justify-content: center; /* centraliza tudo */
+  flex-wrap: wrap;         
+  gap: 20px;               
+  justify-content: center; 
 }
 
-/* Cada corte é uma caixa separada */
+/* Estilo da caixa de serviço individual */
 .servico {
-  flex: 1 1 220px;             /* largura mínima de 220px */
-  max-width: 250px;            /* largura máxima */
-  background-color: white;
+  flex: 1 1 220px;             
+  max-width: 250px;            
+  background-color: rgb(223, 218, 218);
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 20px;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.295);
   transition: transform 0.2s;
+  cursor: pointer; 
 }
 
+/* Estilo HOVER (ao passar o mouse) */
 .servico:hover {
-  
-  background-color: #33333325;
-  color: #fff;
-  transform: scale(1.05);
+  background-color: #33333371; /* Fundo escuro com opacidade */
+  transform: scale(1.05); /* Efeito de zoom */
   box-shadow: 0 0 15px rgba(255,255,255,0.7);
 }
 
+/* CORREÇÃO: Força a cor branca nos elementos internos (H3 e P) no HOVER */
+.servico:hover h3, 
+.servico:hover p {
+  color: #fff; /* Garante que o texto fique branco */
+}
+
+/* Estilo do Título (normal) */
 .servico h3 {
   margin-top: 0;
   font-size: 1.2em;
-  color: #222;
+  color: #222; /* Cor preta padrão */
 }
 
+/* Estilo do Parágrafo (normal) */
 .servico p {
   margin: 8px 0 0;
   font-weight: bold;
-  color: #555;
+  color: #555; /* Cor cinza escuro padrão */
 }
 
 
-/* ======== AGENDAMENTO ======== */
-/* ======== AGENDAMENTO ======== */
+/* ======== AGENDAMENTO RESTAURADA ======== */
 #agendamento {
   max-width: 800px;
-  margin: 80px auto;              /* espaço antes e depois */
+  margin: 80px auto;              
   padding: 30px 20px;
   background: #f7f7f7;
   border-radius: 12px;
@@ -210,16 +331,12 @@ nav a:hover {
 footer {
   background-color: #222;
   color: #ffffff;
-  padding: 0px 30px;
+  padding: 20px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap; /* quebra se for tela pequena */
+  flex-wrap: wrap; 
   margin-top: 50px;
-}
-
-footer .info {
-  font-size: 0.9em;
 }
 
 .local{

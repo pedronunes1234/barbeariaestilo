@@ -1,80 +1,46 @@
-// Lista para armazenar agendamentos (simples - só no navegador)
-const agendamentos = [];
+// Carrega carrinho salvo (ou cria novo)
+  let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  const contador = document.getElementById('contador-carrinho');
+  
+  // Novos elementos do menu responsivo
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuLinks = document.getElementById('menu-links');
 
-// Elementos
-const dataInput = document.getElementById('data');
-const horarioSelect = document.getElementById('horario');
-const form = document.getElementById('form-agendamento');
-const mensagem = document.getElementById('mensagem');
-
-// Função para gerar horários disponíveis com base no dia escolhido
-function gerarHorarios(dataSelecionada) {
-  horarioSelect.innerHTML = '<option value="">Escolha o horário</option>';
-
-  const data = new Date(dataSelecionada);
-  const diaSemana = data.getDay(); // 0 = Domingo, 6 = Sábado
-
-  // Domingo fechado
-  if (diaSemana === 0) {
-    horarioSelect.innerHTML = '<option value="">Domingo - Fechado</option>';
-    return;
+  // Adiciona lógica do menu hamburguer para abrir/fechar no mobile
+  if (menuToggle && menuLinks) {
+    menuToggle.addEventListener('click', () => {
+      menuLinks.classList.toggle('open');
+    });
   }
 
-  // Turnos
-  const horarios = [];
-
-  // Manhã
-  for (let hora = 8; hora <= 11; hora++) {
-    horarios.push(`${hora}:00`);
-  }
-
-  // Sábado só de manhã
-  if (diaSemana !== 6) {
-    // Tarde
-    for (let hora = 14; hora <= 18; hora++) {
-      horarios.push(`${hora}:00`);
+  function atualizarContador() {
+    // Apenas verifica se o elemento existe antes de tentar manipulá-lo
+    if (contador) {
+        contador.textContent = carrinho.length;
+        // Mostra o contador se houver itens
+        contador.style.display = carrinho.length ? 'inline-block' : 'none'; 
     }
   }
 
-  // Preenche o select com horários disponíveis
-  horarios.forEach(h => {
-    const option = document.createElement('option');
-    option.value = h;
-    option.textContent = h;
-    horarioSelect.appendChild(option);
+  // Adiciona serviço ao carrinho
+  document.querySelectorAll('.servico').forEach(servico => {
+    servico.addEventListener('click', () => {
+      // Pega o nome
+      const nome = servico.querySelector('h3').textContent;
+      // Pega o preço
+      const precoTexto = servico.querySelector('p').textContent.replace('R$', '').trim();
+      const preco = parseFloat(precoTexto.replace(',', '.'));
+
+      carrinho.push({ nome, preco });
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      atualizarContador();
+
+      // Feedback visual
+      servico.style.transform = 'scale(1.05)';
+      servico.style.transition = 'transform 0.2s';
+      setTimeout(() => servico.style.transform = 'scale(1)', 200);
+      
+    });
   });
-}
 
-// Quando a data muda → gerar horários
-dataInput.addEventListener('change', (e) => {
-  gerarHorarios(e.target.value);
-});
-
-// Quando o formulário for enviado
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  const nome = document.getElementById('nome').value;
-  const telefone = document.getElementById('telefone').value;
-  const servico = document.getElementById('servico').value;
-  const data = dataInput.value;
-  const horario = horarioSelect.value;
-
-  // Verifica se já existe agendamento para o mesmo dia e hora
-  const jaAgendado = agendamentos.find(a => a.data === data && a.horario === horario);
-
-  if (jaAgendado) {
-    mensagem.textContent = `⚠️ O horário das ${horario} já está indisponível.`;
-    mensagem.style.color = 'red';
-    return;
-  }
-
-  // Salva agendamento
-  agendamentos.push({ nome, telefone, servico, data, horario });
-
-  mensagem.textContent = `✅ Agendamento confirmado para ${data} às ${horario}.`;
-  mensagem.style.color = 'green';
-
-  form.reset();
-  horarioSelect.innerHTML = '<option value="">Escolha o horário</option>';
-});
+  atualizarContador();
